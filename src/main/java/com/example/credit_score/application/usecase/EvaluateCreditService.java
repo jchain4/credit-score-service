@@ -5,8 +5,9 @@ import com.example.credit_score.domain.port.in.EvaluateCreditUseCase;
 import com.example.credit_score.domain.port.out.CreditEvaluationRepository;
 import com.example.credit_score.domain.port.out.CreditScorePublisher;
 import com.example.credit_score.domain.service.CreditScoringService;
+import org.springframework.beans.factory.annotation.Qualifier;
 
-import java.time.LocalDateTime;
+import java.time.*;
 import java.util.UUID;
 
 public class EvaluateCreditService implements EvaluateCreditUseCase {
@@ -17,7 +18,7 @@ public class EvaluateCreditService implements EvaluateCreditUseCase {
 
     public EvaluateCreditService(CreditScoringService scoringService,
                                  CreditEvaluationRepository repository,
-                                 CreditScorePublisher publisher) {
+                                 @Qualifier("rabbitMQCreditScorePublisher") CreditScorePublisher publisher)  {
         this.scoringService = scoringService;
         this.repository = repository;
         this.publisher = publisher;
